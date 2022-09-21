@@ -27,8 +27,6 @@ public class UserserviceImpl implements UserService {
     }
     @Override
     public List<User> index() {
-        System.out.println("userdao     " + userDAO.index());
-//        System.out.println(userDAO.index().get(0).getName());
         return userDAO.index();
     }
 

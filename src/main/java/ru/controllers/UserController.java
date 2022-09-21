@@ -21,18 +21,11 @@ public class UserController {
     public void setUserService(AuthentificationService authentificationService) {
         this.authentificationService = authentificationService;
     }
-
     @Autowired
     private UserDAO userDAO;
 
     @Autowired
-    private UserDAOImpl userDAOImpl;
-
-    @Autowired
     private UserService userService;
-
-
-//    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -40,7 +33,6 @@ public class UserController {
 
     @GetMapping("")
     public String pageForUser(Model model,Principal principal) {
-        System.out.println("user!!!!!!!!++" + userDAO.getUserByLogin(principal.getName()).getId());
         model.addAttribute("user", userService.getUserById(Math.toIntExact(userService.getUserByLogin(principal.getName()).getId())));
         return "admin/show";
     }

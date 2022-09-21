@@ -9,7 +9,6 @@ ID: <span th:text="${user.getId()}">VALUE</span></br>
 Имя: <span th:text="${user.getName()}">VALUE</span></br>
 Возраст: <span th:text="${user.getAge()}">VALUE</span></br>
 Роли: <span th:text="${user.getRoles()}">VALUE</span></br>
-<!--<p th:text="${user}">VALUE</p>-->
 
 <a th:href="@{/admin/edit?id={id}(id=${user.getId()})}">Edit</a>
 

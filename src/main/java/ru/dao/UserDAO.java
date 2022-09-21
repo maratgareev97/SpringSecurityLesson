@@ -12,6 +12,5 @@ public interface UserDAO {
     public void saveUser(User user);
     public void updateUser(int id, User updatedUser);
     public void deleteUser(int id);
-
     User getUserByLogin(String username);
 }
