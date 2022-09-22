@@ -29,34 +29,21 @@
 
     <label for="password">Enter password: </label>
     <input type="text" th:field="*{password}" id="password"/>
+    <br>
+
+    <select multiple name="listRoles" required="required">
+        <option th:field="*{roles}"
+                th:each="i : ${#numbers.sequence(1, 2)}"
+                th:value="${i}"
+                th:text="${role[i]}"
+                th:selected="${i==1}">
+        </option>
+    </select>
     </br>
-
-
-    <label>Roles:
-        <select size="2" multiple name="listRoles" required="required">
-            <option selected value="2" th:field="*{roles}">USER</option>
-            <option selected value="1" th:field="*{roles}">ADMIN</option>
-        </select>
-    </label>
-<br>
-
+    </br>
     <input type="submit" value="Update!"/>
 </form>
-<div><p th:utext="${user.getRoles()[0].getName()}"></p></div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Серийный номер</th>
-        <th>имя пользователя</th>
-        <th>пароль</th>
-        <th>Никнейм пользователя</th>
-    </tr>
-    <tr th:each="u:${user.getRoles()}">
-        <td th:text="${u}"></td>
-    </tr>
-    </thead>
-</table>
 <a href="/logout">LOGOUT</a>
 </body>
 </html>

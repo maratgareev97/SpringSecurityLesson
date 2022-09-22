@@ -8,4 +8,3 @@ import ru.models.User;
 public interface AuthUserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 }
-

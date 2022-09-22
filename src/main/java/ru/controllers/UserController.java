@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.dao.UserDAO;
-import ru.dao.UserDAOImpl;
 import ru.services.AuthentificationService;
 import ru.services.UserService;
 
@@ -21,8 +19,6 @@ public class UserController {
     public void setUserService(AuthentificationService authentificationService) {
         this.authentificationService = authentificationService;
     }
-    @Autowired
-    private UserDAO userDAO;
 
     @Autowired
     private UserService userService;

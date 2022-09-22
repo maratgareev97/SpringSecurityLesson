@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class UserserviceImpl implements UserService {
-
     @Autowired
     private UserDAO userDAO;
 
@@ -27,6 +26,7 @@ public class UserserviceImpl implements UserService {
     }
     @Override
     public List<User> index() {
+        System.out.println("userdao     " + userDAO.index());
         return userDAO.index();
     }
 

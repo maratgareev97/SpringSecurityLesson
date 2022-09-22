@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.dao.UserDAO;
-import ru.dao.UserDAOImpl;
 import ru.models.Role;
 import ru.models.User;
 import ru.services.AuthentificationService;
@@ -42,7 +40,6 @@ public class AdminController {
 
     @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user) {
-
         return "admin/new";
     }
 
@@ -54,14 +51,18 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/edit")
-    public String edit(Model model, @RequestParam("id") String id) {
+    public String edit(Model model, @RequestParam("id") String id, Model m) {
         model.addAttribute("user", userService.getUserById(Integer.parseInt(id)));
+        String[] role = new String[]{"", "Admin", "User"};
+        m.addAttribute("role", role);
         return "admin/edit";
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+    public String updateUser(@ModelAttribute("user") @Valid User user,
+                             BindingResult bindingResult,
                              @PathVariable("id") int id,
                              @RequestParam(name = "listRoles") Collection<Role> roles) {
         if (bindingResult.hasErrors())

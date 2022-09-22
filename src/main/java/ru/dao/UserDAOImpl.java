@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.models.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -79,8 +80,8 @@ public class UserDAOImpl implements UserDAO {
         User user = entityManager.find(User.class, Long.valueOf(id));
         entityManager.remove(user);
         entityManager.flush();
-
     }
+
     @Override
     public User getUserByLogin(String username) {
         TypedQuery<User> q = (entityManager.createQuery("select u from User u " +

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.models.Role;
 import ru.models.User;
 import ru.dao.AuthUserRepository;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class AuthentificationService implements UserDetailsService {
     public void setUserRepository(AuthUserRepository authUserRepository) {
         this.authUserRepository = authUserRepository;
     }
+
     public User findByUsername(String username) {
         return authUserRepository.findByUsername(username);
     }
@@ -40,32 +42,3 @@ public class AuthentificationService implements UserDetailsService {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
