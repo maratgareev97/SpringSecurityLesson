@@ -5,19 +5,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.dao.UserDAOImpl;
 import ru.models.Role;
 import ru.models.User;
 import ru.services.AuthentificationService;
 import ru.services.UserService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private AuthentificationService authentificationService;
-    String[] role = new String[]{"", "Admin", "User"};
+//    String[] role = new String[]{"", "Admin", "User"};
+    ArrayList<String> role = new ArrayList<String>();
 
     @Autowired
     public void setUserService(AuthentificationService authentificationService) {
@@ -40,8 +43,8 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user,Model m) {
-        m.addAttribute("role", role);
+    public String newUser(@ModelAttribute("user") User user, Model m) {
+        m.addAttribute("role", userService.roleList());
         return "admin/new";
     }
 
@@ -58,7 +61,7 @@ public class AdminController {
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam("id") String id, Model m) {
         model.addAttribute("user", userService.getUserById(Integer.parseInt(id)));
-        m.addAttribute("role", role);
+        m.addAttribute("role", userService.roleList());
         return "admin/edit";
     }
 

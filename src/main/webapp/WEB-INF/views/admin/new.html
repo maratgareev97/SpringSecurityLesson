@@ -33,7 +33,7 @@
     <br><br><br>
     <select multiple name="listRoles" required="required">
         <option th:field="*{roles}"
-                th:each="i : ${#numbers.sequence(1, 2)}"
+                th:each="i : ${#numbers.sequence(1, role.size()-1)}"
                 th:value="${i}"
                 th:text="${role[i]}"
                 th:selected="${i==1}">

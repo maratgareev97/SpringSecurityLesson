@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.dao.UserDAO;
+import ru.models.Role;
 import ru.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,6 +55,21 @@ public class UserserviceImpl implements UserService {
     @Override
     public User getUserByLogin(String username) {
         return userDAO.getUserByLogin(username);
+    }
+
+    @Override
+    public List<Role> showRole(){
+        return userDAO.showRole();
+    }
+
+    @Override
+    public ArrayList<String> roleList(){
+        ArrayList<String> role = new ArrayList<String>();
+        role.add("");
+        for (int i=0;i<userDAO.showRole().size();i++) {
+            role.add(userDAO.showRole().get(i).toString());
+        }
+        return role;
     }
 
 }

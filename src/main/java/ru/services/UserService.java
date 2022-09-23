@@ -1,7 +1,9 @@
 package ru.services;
 
+import ru.models.Role;
 import ru.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserService {
@@ -13,5 +15,8 @@ public interface UserService {
     public void deleteUser(int id);
     User getUserByLogin(String username);
     User passwordCoder(User user);
+
+    public List<Role> showRole();
+    public ArrayList<String> roleList();
 
 }

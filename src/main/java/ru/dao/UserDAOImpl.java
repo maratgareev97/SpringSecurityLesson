@@ -3,6 +3,7 @@ package ru.dao;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.models.Role;
 import ru.models.User;
 
 import javax.persistence.EntityManager;
@@ -88,5 +89,17 @@ public class UserDAOImpl implements UserDAO {
                 "join fetch u.roles where u.username = :username", User.class));
         q.setParameter("username", username);
         return q.getResultList().stream().findFirst().orElse(null);
+    }
+
+    @Override
+    public List<Role> showRole() {
+        List<Role> role = new ArrayList<>();
+        try {
+            TypedQuery<Role> entity = entityManager.createQuery("SELECT u from Role u", Role.class);
+            role = entity.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return role;
     }
 }

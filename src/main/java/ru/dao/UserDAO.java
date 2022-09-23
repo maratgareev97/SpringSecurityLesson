@@ -2,8 +2,10 @@ package ru.dao;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import ru.models.Role;
 import ru.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface UserDAO {
@@ -14,4 +16,7 @@ public interface UserDAO {
     public void deleteUser(int id);
 
     User getUserByLogin(String username);
+
+    public List<Role> showRole();
+//    public ArrayList<String> showRole();
 }
