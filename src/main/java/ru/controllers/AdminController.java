@@ -17,6 +17,7 @@ import java.util.Collection;
 @RequestMapping("/admin")
 public class AdminController {
     private AuthentificationService authentificationService;
+    String[] role = new String[]{"", "Admin", "User"};
 
     @Autowired
     public void setUserService(AuthentificationService authentificationService) {
@@ -39,13 +40,15 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
+    public String newUser(@ModelAttribute("user") User user,Model m) {
+        m.addAttribute("role", role);
         return "admin/new";
     }
 
     @PostMapping()
     public String create(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult, @RequestParam("listRoles") Collection<Role> roles) {
+                         BindingResult bindingResult,
+                         @RequestParam("listRoles") Collection<Role> roles) {
         user.setRoles(roles);
         userService.saveUser(user);
         return "redirect:/admin";
@@ -55,7 +58,6 @@ public class AdminController {
     @GetMapping("/edit")
     public String edit(Model model, @RequestParam("id") String id, Model m) {
         model.addAttribute("user", userService.getUserById(Integer.parseInt(id)));
-        String[] role = new String[]{"", "Admin", "User"};
         m.addAttribute("role", role);
         return "admin/edit";
     }
