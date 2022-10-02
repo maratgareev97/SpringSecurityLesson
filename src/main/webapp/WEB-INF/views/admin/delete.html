@@ -19,7 +19,7 @@
 
 
 <div class="modal-header">
-    <h4 class="modal-title">Edit user</h4>
+    <h4 class="modal-title">Delete user</h4>
     <button class="close" data-dismiss="modal">x</button>
 </div>
 
@@ -34,40 +34,22 @@
                     <input class="form-control" type="text" th:field="*{id}" id="id" disabled>
 
                     <label for="name" class="pt-3">First name</label>
-                    <input class="form-control" type="text" th:field="*{name}" id="name"
-                           style="background-color: lightyellow">
-                    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
-                        Error
-                    </div>
+                    <input class="form-control" type="text" th:field="*{name}" id="name" disabled>
 
                     <label for="username" class="pt-3">Last-name</label>
-                    <input class="form-control" type="text" th:field="*{username}" id="username"
-                           style="background-color: lightyellow">
-                    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
-                        username Error
-                    </div>
+                    <input class="form-control" type="text" th:field="*{username}" id="username" disabled>
 
                     <label for="age" class="pt-3">Age</label>
-                    <input class="form-control" type="text" th:field="*{age}" id="age">
-                    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age
-                        Error
-                    </div>
+                    <input class="form-control" type="text" th:field="*{age}" id="age" disabled>
 
                     <label for="email" class="pt-3">Email</label>
-                    <input class="form-control" type="text" th:field="*{email}" id="email"
-                           style="background-color: lightyellow">
-                    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email
-                        Error
-                    </div>
+                    <input class="form-control" type="text" th:field="*{email}" id="email" disabled>
 
                     <label for="password" class="pt-3">Password</label>
-                    <input class="form-control" type="text" th:field="*{password}" id="password">
-                    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                        password Error
-                    </div>
+                    <input class="form-control" type="text" th:field="*{password}" id="password" disabled>
 
                     <label for="role" class="pt-3">Role</label>
-                    <select multiple name="listRoles" required="required" class="form-control" id="role">
+                    <select multiple name="listRoles" required="required" class="form-control" id="role" disabled>
                         <option
                                 th:field="*{roles}"
                                 th:each="i : ${#numbers.sequence(1, role.size()-1)}"
@@ -82,11 +64,15 @@
             </div>
         </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <input type="submit" value="Edit" class="btn btn-primary"/>
-        </div>
+
     </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+            <input type="submit" class="btn btn-danger btn-sm" value="Delete"/>
+        </form>
+    </div>
+
 </div>
 
 </body>

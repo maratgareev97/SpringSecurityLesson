@@ -26,6 +26,7 @@ public class UserserviceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }
+
     @Override
     public List<User> index() {
         System.out.println("userdao     " + userDAO.index());
@@ -58,17 +59,22 @@ public class UserserviceImpl implements UserService {
     }
 
     @Override
-    public List<Role> showRole(){
+    public List<Role> showRole() {
         return userDAO.showRole();
     }
 
     @Override
-    public ArrayList<String> roleList(){
+    public ArrayList<String> roleList() {
         ArrayList<String> role = new ArrayList<String>();
         role.add("");
-        for (int i=0;i<userDAO.showRole().size();i++) {
-            role.add(userDAO.showRole().get(i).toString());
+        int count = 0;
+        for (int i = 0; i < userDAO.showRole().size(); i++) {
+            count++;
+            if (count != 0) {
+                role.add(userDAO.showRole().get(i).toString().substring(5, userDAO.showRole().get(i).toString().length()));
+            }
         }
+//        role.remove(0);
         return role;
     }
 

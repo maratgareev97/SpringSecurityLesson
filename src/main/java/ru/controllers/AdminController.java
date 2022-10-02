@@ -19,7 +19,7 @@ import java.util.Collection;
 @RequestMapping("/admin")
 public class AdminController {
     private AuthentificationService authentificationService;
-//    String[] role = new String[]{"", "Admin", "User"};
+    //    String[] role = new String[]{"", "Admin", "User"};
     ArrayList<String> role = new ArrayList<String>();
 
     @Autowired
@@ -32,6 +32,7 @@ public class AdminController {
 
     @GetMapping()
     public String index(Model model) {
+        User user;
         model.addAttribute("user", userService.index());
         return "admin/index";
     }
@@ -63,6 +64,13 @@ public class AdminController {
         model.addAttribute("user", userService.getUserById(Integer.parseInt(id)));
         m.addAttribute("role", userService.roleList());
         return "admin/edit";
+    }
+
+    @GetMapping("/delete")
+    public String delete(Model model, @RequestParam("id") String id, Model m) {
+        model.addAttribute("user", userService.getUserById(Integer.parseInt(id)));
+        m.addAttribute("role", userService.roleList());
+        return "admin/delete";
     }
 
     @PatchMapping("/{id}")

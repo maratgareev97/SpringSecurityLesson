@@ -11,7 +11,6 @@ import ru.services.UserService;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
     private AuthentificationService authentificationService;
 
@@ -27,9 +26,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public String pageForUser(Model model,Principal principal) {
+    @GetMapping(value = "/")
+    public String index() {
+        return "redirect:/login";
+    }
+
+
+    @GetMapping("/user")
+    public String pageForUser(Model model, Principal principal) {
         model.addAttribute("user", userService.getUserById(Math.toIntExact(userService.getUserByLogin(principal.getName()).getId())));
         return "admin/show";
+    }
+
+    @GetMapping(value = "/login")
+    public String loginPage() {
+        return "admin/login";
     }
 }
