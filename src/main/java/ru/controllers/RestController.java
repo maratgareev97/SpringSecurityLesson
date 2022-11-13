@@ -39,6 +39,7 @@ public class RestController {
     }
 
     @PostMapping("/employees")
+    @CrossOrigin
     public ResponseEntity<EmployeeIncorrectData> create(@Valid @RequestBody User user) {
         userService.saveUser(user);
         System.out.println("noc " + user);

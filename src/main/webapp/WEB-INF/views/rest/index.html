@@ -60,20 +60,20 @@
         <div class="container">
             <h1>Admin panel</h1>
         </div>
-        <div>
+        <div id="chek_table">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Users table</a>
+                    <a class="nav-link active" aria-current="page" href="index.html">Users table</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="new.html">New User</a>
+                    <a class="nav-link" href="#" onClick="newUser();">New User</a>
                 </li>
             </ul>
         </div>
         <div style="padding: 10px">
             <h4>All users</h4>
         </div>
-        <div>
+        <div id="new_user">
             <table class="table table-hover" style="background-color: white" id="tablaArticulos">
                 <thead>
                 <tr>
@@ -159,6 +159,7 @@
 <script src="index.js"></script>
 <script src="edit.js"></script>
 <script src="delete.js"></script>
+<script src="new.js"></script>
 <!--<div th:each="user : ${user}">-->
 <!--    <a th:href="@{/admin/{id}(id=${user.getId()})}"-->
 <!--       th:text="${user.getId()+', '+user.getName() +', '+user.getName()+', ' + user.getAge()+user.getEmail()+user.getRoles()}">user</a>-->

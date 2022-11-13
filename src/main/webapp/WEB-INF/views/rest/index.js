@@ -1,5 +1,5 @@
 async function index() {
-    
+
     await fetch("http://localhost:8080/api/employees")
         .then((response) => {
             const data = response.json();
@@ -11,37 +11,37 @@ async function index() {
                 let out = "";
                 for (let product of user) {
                     out += `
-        <tr id="${product.id}">
-        <th scope="row">${product.id}</th>
-            <td>
-                ${product.name}
-            </td>
-            <td>
-                ${product.username}
-            </td>
-            <td>
-                ${product.age}
-            </td>
-            <td>
-                ${product.email}
-            </td>
-            <td>
-                ${product.roles.map(e => e.name)}
-            </td>
-            <td>
-                <a href="#" class="btn btn-primary" role="button" data-toggle="modal" 
-                    data-target="#modelArticulo" onclick="aaa(${product.id});">
-                    Edit
-                </a>
-            </td>
-            <td>
-            <a href="#" class="btn btn-danger btn-sm"
-            role="button"  onclick="delete_user(${product.id});">
-             Delete
-         </a>
-            </td>
-      </tr>
-      `;
+                    <tr id="${product.id}">
+                    <th scope="row">${product.id}</th>
+                        <td>
+                            ${product.name}
+                        </td>
+                        <td>
+                            ${product.username}
+                        </td>
+                        <td>
+                            ${product.age}
+                        </td>
+                        <td>
+                            ${product.email}
+                        </td>
+                        <td>
+                            ${product.roles.map(e => e.name)}
+                        </td>
+                        <td>
+                            <a href="#" class="btn btn-primary" role="button" data-toggle="modal" 
+                                data-target="#modelArticulo" onclick="aaa(${product.id});">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                        <a href="#" class="btn btn-danger btn-sm"
+                        role="button"  onclick="delete_user(${product.id});">
+                         Delete
+                     </a>
+                        </td>
+                  </tr>
+                    `;
                 }
                 placeholder.innerHTML = out;
 
