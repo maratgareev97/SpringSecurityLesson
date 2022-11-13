@@ -31,6 +31,7 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping()
+    @CrossOrigin
     public String index(Model model) {
         User user;
         model.addAttribute("user", userService.index());
@@ -89,5 +90,12 @@ public class AdminController {
     public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/admin";
+    }
+
+    @GetMapping("/test")
+    @CrossOrigin
+    public String test() {
+//        model.addAttribute("user", userService.index());
+        return "admin/test";
     }
 }

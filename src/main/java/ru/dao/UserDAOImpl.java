@@ -32,20 +32,25 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserById(int id) {
-        User user;
+        User user = null;
         List<User> userList;
         TypedQuery<User> entity = entityManager.createQuery("select p from User p where p.id = :id", User.class);
+
         entity.setParameter("id", Long.valueOf(id));
         userList = entity.getResultList();
-        user = new User();
-        user.setId(userList.get(0).getId());
-        user.setName(userList.get(0).getName());
-        user.setEmail(userList.get(0).getEmail());
-        user.setAge(userList.get(0).getAge());
-        user.setUsername(userList.get(0).getUsername());
-        user.setPassword(userList.get(0).getPassword());
-        user.setRoles(userList.get(0).getRoles());
-        return user;
+        if (userList.size() == 0) {
+            return user;
+        } else {
+            user = new User();
+            user.setId(userList.get(0).getId());
+            user.setName(userList.get(0).getName());
+            user.setEmail(userList.get(0).getEmail());
+            user.setAge(userList.get(0).getAge());
+            user.setUsername(userList.get(0).getUsername());
+            user.setPassword(userList.get(0).getPassword());
+            user.setRoles(userList.get(0).getRoles());
+            return user;
+        }
 
     }
 
