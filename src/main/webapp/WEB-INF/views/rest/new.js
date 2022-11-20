@@ -1,8 +1,4 @@
-async function create_user(){
-    var e = document.getElementById("listRoles_create");
-    // var text = e.options[e.selectedIndex].text;
-    // console.log(text)
-
+async function create_user() {
 
     var selected = [];
     for (var option of document.getElementById('listRoles_create').options) {
@@ -10,41 +6,22 @@ async function create_user(){
             selected.push(option.value);
         }
     }
-    
+
+
+    console.log("selected " + selected)
     let roless;
-    if (selected.length == 2) {
-        console.log(selected.length)
-        roless = [
-            {
-                "id": 1,
-                "name": "ROLE_ADMIN",
-                "authority": "ROLE_ADMIN"
-            },
-            {
-                "id": 2,
-                "name": "ROLE_USER",
-                "authority": "ROLE_USER"
-            }
-        ]
-    } else {
-        if (selected[0] == "ROLE_ADMIN") {
-            roless = [
-                {
-                    "id": 1,
-                    "name": "ROLE_ADMIN",
-                    "authority": "ROLE_ADMIN"
-                }
-            ]
-        } else {
-            roless = [
-                {
-                    "id": 2,
-                    "name": "ROLE_USER",
-                    "authority": "ROLE_USER"
-                }
-            ]
-        }
+
+    let test_mas = []
+    for (let i = 0; i < selected.length; i++) {
+        test_mas.push({ "id": i + 1, "name": selected[i], "authority": selected[i] })
     }
+    console.log("test_mas  " + test_mas)
+
+    roless = test_mas
+    console.log("roless   " + roless)
+    roless.forEach(e => console.log(e))
+
+
 
     let listUser = {
         "name": document.formEdit.name_create.value,
@@ -67,11 +44,54 @@ async function create_user(){
         .then(res => console.log(res));
 
     alert("Данные занесены")
-    
-    
+
+
 }
 
-function newUser(){
+async function newUser() {
+
+    var roles_List = await fetch("http://localhost:8080/api/employees/roles")
+        .then((response) => {
+            const data = response.text();
+            return data;
+        })
+
+    console.log(roles_List)
+
+    let massiv_roles = []
+
+    roles_List = roles_List.substring(3,).split(",")
+    roles_List = roles_List.toString()
+    roles_List = roles_List.replace(/"/g, "")
+    roles_List = roles_List.replace("]", "")
+    roles_List = roles_List.substring(1,)
+    let roles_List_mas = roles_List.split(',')
+    for (let i = 0; i < roles_List_mas.length; i++) {
+        roles_List_mas[i] = "ROLE_" + roles_List_mas[i]
+    }
+    // roles_List_mas.push("ROLE_TEST")
+    console.log(roles_List_mas + "----!----")
+
+
+    let count;
+    let roles = "";
+    for (let i = 0; i < roles_List_mas.length; i++) {
+        count = 0;
+        for (let j = 0; j < massiv_roles.length; j++) {
+            if (roles_List_mas[i] == massiv_roles[j]) {
+                roles += `<option selected>${roles_List_mas[i]}</option>`
+                break
+            } else {
+                count++;
+            }
+        }
+        if (count == massiv_roles.length) {
+            roles += `<option>${roles_List_mas[i]}</option>`
+        }
+
+    }
+
+
     let chek_table = document.querySelector("#chek_table");
     let out_chek_table = `
     <ul class="nav nav-tabs">
@@ -120,8 +140,7 @@ function newUser(){
 
                     <label for="role" class="pt-3">Role</label>
                     <select multiple id="listRoles_create" required="required" class="form-control">
-                        <option>ROLE_ADMIN</option>
-                        <option>ROLE_USER</option>                 
+                        ${roles}               
                     </select>
                 </div>
                 <div class="col-3">
