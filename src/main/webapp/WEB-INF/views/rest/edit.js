@@ -54,6 +54,12 @@ async function btnClick() {
     emailEdit.innerHTML = document.formEdit.email_edit.value;
     let roleEdit = document.getElementById("role_" + document.formEdit.id_edit.value)
     roleEdit.innerHTML = listUser.roles.map(e => e.name);
+
+    $('#modelArticulo').modal({
+        show: false
+      });
+
+      
 }
 
 
@@ -158,7 +164,7 @@ async function aaa(id) {
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="button" onClick="btnClick();" value="Edit" class="btn btn-primary"/>
+                        <input type="button" onClick="btnClick();" value="Edit" class="btn btn-primary" data-dismiss="modal"/>
                     </div>
                 </form>
             `;
