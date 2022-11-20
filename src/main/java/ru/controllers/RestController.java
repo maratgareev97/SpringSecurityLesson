@@ -3,17 +3,14 @@ package ru.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.exception.EmployeeIncorrectData;
 import ru.exception.NoSuchEployeeException;
-import ru.models.Role;
 import ru.models.User;
 import ru.services.UserService;
 
 import javax.validation.Valid;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -24,8 +21,16 @@ public class RestController {
 
     @GetMapping("/employees")
     @CrossOrigin
-    public List<User> index(Model model) {
+    public List<User> index() {
+        userService.roleList();
         return userService.index();
+    }
+
+    @GetMapping("/employees/roles")
+    @CrossOrigin
+    public ArrayList<String> showRole() {
+        return userService.roleList();
+//        return userService.index();
     }
 
     @GetMapping("/employees/{id}")

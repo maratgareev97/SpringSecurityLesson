@@ -9,5 +9,6 @@ async function delete_user(id) {
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
     
-    index();
+    // index();
+    document.getElementById(id).remove();
 }

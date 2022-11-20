@@ -1,5 +1,4 @@
 async function index() {
-
     await fetch("http://localhost:8080/api/employees")
         .then((response) => {
             const data = response.json();
@@ -14,19 +13,19 @@ async function index() {
                     <tr id="${product.id}">
                     <th scope="row">${product.id}</th>
                         <td>
-                            ${product.name}
+                            <div id="name_${product.id}">${product.name}</div>
                         </td>
                         <td>
-                            ${product.username}
+                            <div id="username_${product.id}">${product.username}</div>
                         </td>
                         <td>
-                            ${product.age}
+                            <div id="age_${product.id}">${product.age}</div>
                         </td>
                         <td>
-                            ${product.email}
+                            <div id="email_${product.id}">${product.email}</div>
                         </td>
                         <td>
-                            ${product.roles.map(e => e.name)}
+                            <div id="role_${product.id}">${product.roles.map(e => e.name)}</div>
                         </td>
                         <td>
                             <a href="#" class="btn btn-primary" role="button" data-toggle="modal" 
@@ -44,41 +43,6 @@ async function index() {
                     `;
                 }
                 placeholder.innerHTML = out;
-
-
-                let student = {
-                    "id": 41,
-                    "name": "eeee1",
-                    "age": 89,
-                    "username": "eeee",
-                    "password": "$2a$10$h5EmZ6PH.D5xuuA3OB.r5ul4Y1Oj1TlBb6QrQF02sgjlEAcP2R8FK",
-                    "email": "maratgareev97@gmail.com",
-                    "roles": [
-                        {
-                            "id": 2,
-                            "name": "ROLE_USER",
-                            "authority": "ROLE_USER"
-                        }
-                    ],
-                    "enabled": true,
-                    "authorities": [
-                        {
-                            "id": 2,
-                            "name": "ROLE_USER",
-                            "authority": "ROLE_USER"
-                        }
-                    ],
-                    "accountNonLocked": true,
-                    "credentialsNonExpired": true,
-                    "accountNonExpired": true
-                };
-
-                // let json = JSON.stringify(student.roles[0].authority);
-                let json = JSON.stringify(student);
-
-                //   alert(typeof json); // мы получили строку!
-
-                // console.log(json);
             }
         );
 

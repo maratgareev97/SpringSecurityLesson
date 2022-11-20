@@ -1,9 +1,7 @@
 async function btnClick() {
-
     var e = document.getElementById("listRoles");
     var text = e.options[e.selectedIndex].text;
     console.log(text)
-
 
     var selected = [];
     for (var option of document.getElementById('listRoles').options) {
@@ -13,43 +11,18 @@ async function btnClick() {
     }
 
     let id_edit = document.formEdit.id_edit.value;
-    let name_edit = document.formEdit.name_edit.value;
-    // console.log(document.formEdit.selectet.value);
-
+    console.log("selected " + selected)
     let roless;
-    if (selected.length == 2) {
-        console.log(selected.length)
-        roless = [
-            {
-                "id": 1,
-                "name": "ROLE_ADMIN",
-                "authority": "ROLE_ADMIN"
-            },
-            {
-                "id": 2,
-                "name": "ROLE_USER",
-                "authority": "ROLE_USER"
-            }
-        ]
-    } else {
-        if (selected[0] == "ROLE_ADMIN") {
-            roless = [
-                {
-                    "id": 1,
-                    "name": "ROLE_ADMIN",
-                    "authority": "ROLE_ADMIN"
-                }
-            ]
-        } else {
-            roless = [
-                {
-                    "id": 2,
-                    "name": "ROLE_USER",
-                    "authority": "ROLE_USER"
-                }
-            ]
-        }
+
+    let test_mas = []
+    for (let i = 0; i < selected.length; i++) {
+        test_mas.push({ "id": i + 1, "name": selected[i], "authority": selected[i] })
     }
+    console.log("test_mas  " + test_mas)
+
+    roless = test_mas
+    console.log("roless   " + roless)
+    roless.forEach(e => console.log(e))
 
     let listUser = {
         "id": document.formEdit.id_edit.value,
@@ -71,40 +44,76 @@ async function btnClick() {
     })
         .then(res => console.log(res));
 
-    index();
+    let nameEdit = document.getElementById("name_" + document.formEdit.id_edit.value)
+    nameEdit.innerHTML = document.formEdit.name_edit.value;
+    let ageEdit = document.getElementById("age_" + document.formEdit.id_edit.value)
+    ageEdit.innerHTML = document.formEdit.age_edit.value;
+    let usernameEdit = document.getElementById("username_" + document.formEdit.id_edit.value)
+    usernameEdit.innerHTML = document.formEdit.username_edit.value;
+    let emailEdit = document.getElementById("email_" + document.formEdit.id_edit.value)
+    emailEdit.innerHTML = document.formEdit.email_edit.value;
+    let roleEdit = document.getElementById("role_" + document.formEdit.id_edit.value)
+    roleEdit.innerHTML = listUser.roles.map(e => e.name);
 }
 
 
 async function aaa(id) {
+    var roles_List = await fetch("http://localhost:8080/api/employees/roles")
+        .then((response) => {
+            const data = response.text();
+            return data;
+        })
+
+
+
+
     await fetch(`http://localhost:8080/api/employees/${id}`)
         .then((response) => {
             const data = response.json();
-            console.log(data);
+            console.log("data   " + data);
             return data;
         })
         .then((user) => {
-                let roles0 = user.roles[0].name;
-                console.log(roles0)
-                let roles0_0 = "";
-                if (roles0 == "ROLE_ADMIN") {
-                    roles0_0 = "ROLE_USER"
-                } else {
-                    roles0_0 = "ROLE_ADMIN"
-                }
-                let roles1 = user.roles[1];
-                let roles1_1 = user.roles;
-                if (roles1 == null) {
-                    roles1_1 = `<option selected>${roles0}</option><option>${roles0_0}</option>`;
-                    console.log(roles1_1)
-                } else {
-                    roles1 = user.roles[1].name;
-                    roles1_1 = `<option selected>${roles0}</option><option selected>${roles1}</option>`
-                    console.log(roles1_1);
-                }
-                ;
+            let massiv_roles = []
 
-                let placeholder = document.querySelector("#edit");
-                let out1 = `
+            roles_List = roles_List.substring(3,).split(",")
+            roles_List = roles_List.toString()
+            roles_List = roles_List.replace(/"/g, "")
+            roles_List = roles_List.replace("]", "")
+            roles_List = roles_List.substring(1,)
+            let roles_List_mas = roles_List.split(',')
+            for (let i = 0; i < roles_List_mas.length; i++) {
+                roles_List_mas[i] = "ROLE_" + roles_List_mas[i]
+            }
+            // roles_List_mas.push("ROLE_TEST")
+            console.log(roles_List_mas + "----!----")
+
+            user.roles.forEach(element => {
+                massiv_roles.push(element.name)
+            });
+            console.log("massiv_roles: " + massiv_roles)
+
+            let count;
+            let roles = "";
+            for (let i = 0; i < roles_List_mas.length; i++) {
+                count = 0;
+                for (let j = 0; j < massiv_roles.length; j++) {
+                    if (roles_List_mas[i] == massiv_roles[j]) {
+                        roles += `<option selected>${roles_List_mas[i]}</option>`
+                        break
+                    } else {
+                        count++;
+                    }
+                }
+                if (count == massiv_roles.length) {
+                    roles += `<option>${roles_List_mas[i]}</option>`
+                }
+
+            }
+
+
+            let placeholder = document.querySelector("#edit");
+            let out1 = `
                 <form name="formEdit">
                     <div class="form-group">
                         <div class="row">
@@ -139,9 +148,7 @@ async function aaa(id) {
 
                                 <label for="role" class="pt-3">Role</label>
                                 <select multiple id="listRoles" required="required" class="form-control">
-                                        <!-- ${user.roles.map(e => `<option selected name="selected0">${e.name}</option>`)} 
-                                        <option selected>${roles0}</option>   -->
-                                        ${roles1_1}
+                                        ${roles}
                                 </select>
                             </div>
                             <div class="col-3">
@@ -155,9 +162,8 @@ async function aaa(id) {
                     </div>
                 </form>
             `;
-                placeholder.innerHTML = out1;
-            }
+            placeholder.innerHTML = out1;
+
+        }
         );
-
-
 }
