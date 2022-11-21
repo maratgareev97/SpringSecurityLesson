@@ -96,6 +96,6 @@ public class AdminController {
     @CrossOrigin
     public String test() {
 //        model.addAttribute("user", userService.index());
-        return "admin/test";
+        return "rest/index";
     }
 }
