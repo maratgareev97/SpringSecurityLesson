@@ -35,7 +35,7 @@ public class RestControllerWeb {
     public String index(Model model) {
         User user;
         model.addAttribute("user", userService.index());
-        return "admin/index";
+        return "rest/index";
     }
 
 
