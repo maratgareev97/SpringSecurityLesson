@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>
+        Тест
+    </title>
+    <!--        <link th:href="@{/test.js}" type="text/javascript"-->
+    <!--              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+</head>
+
+<body>
+    <table border="1" width="100%">
+        <thead>
+            <tr>
+                <th>userId</th>
+                <th>Id</th>
+                <th>title</th>
+                <th>complected1</th>
+            </tr>
+        </thead>
+        <tbody id="data-output">
+
+        </tbody>
+    </table>
+    <!--        <script type="text/javascript" th:src="@{test.js.html}"  src="js/test.js.html"></script>-->
+    <script>
+        fetch("https://jsonplaceholder.typicode.com/todos")
+            .then((response) => {
+                const data = response.json();
+                console.log(data);
+                return data;
+            })
+            .then((products) => {
+                let placeholder = document.querySelector("#data-output");
+                let out = "";
+                for (let product of products) {
+                    out += `
+        <tr>
+            <td>${product.userId}</td>
+            <td>${product.id}</td>
+            <td>${product.title}</td>
+            <td>${product.complected}</td>
+        </tr>
+        `;
+                }
+                placeholder.innerHTML = out;
+            })
+
+
+    </script>
+    <!--<script th:src="@{./test.js}"></script>-->
+</body>
+
+</html>

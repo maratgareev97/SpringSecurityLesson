@@ -26,7 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping()
     public String index() {
         return "redirect:/login";
     }
@@ -38,7 +38,7 @@ public class UserController {
         return "admin/show";
     }
 
-    @GetMapping(value = "/login")
+    @GetMapping("/login")
     public String loginPage() {
         return "admin/login";
     }

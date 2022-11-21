@@ -8,6 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 import javax.annotation.Resource;
@@ -26,13 +28,13 @@ public class SpringSecurityApplication {
         return new HiddenHttpMethodFilter();
     }
 
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setPrefix("/WEB-INF/views/");
-        templateResolver.setSuffix(".html");
-        return templateResolver;
-    }
+//    @Bean
+//    public SpringResourceTemplateResolver templateResolver() {
+//        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+//        templateResolver.setPrefix("/WEB-INF/views/");
+//        templateResolver.setSuffix(".html");
+//        return templateResolver;
+//    }
 
     @Resource
     private Environment env;

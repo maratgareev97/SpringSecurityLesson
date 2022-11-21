@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import ru.services.AuthentificationService;
 
 @EnableWebSecurity
@@ -53,4 +54,5 @@ public class SequrityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+
 }

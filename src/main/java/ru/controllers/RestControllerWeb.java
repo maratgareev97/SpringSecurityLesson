@@ -39,10 +39,10 @@ public class RestControllerWeb {
     }
 
 
-//    @GetMapping("/test")
-//    @CrossOrigin
-//    public String test() {
-////        model.addAttribute("user", userService.index());
-//        return "rest/index";
-//    }
+    @GetMapping("/test")
+    @CrossOrigin
+    public String test() {
+//        model.addAttribute("user", userService.index());
+        return "rest/test";
+    }
 }
